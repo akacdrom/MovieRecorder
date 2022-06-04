@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>Movie Recorder</title>
+  </head>
+  <body>
+    <h1>Movies in the Database</h1>
+    <div>
+  <form>
+    <h2 for="fname">Add Movie Title:</h2>
+    <input type="text" id="mtitle" name="mtitle" placeholder="ENTER MOVIE TITLE..."><br>
+    <button id="submit" onclick="submitForm()">Submit</button>
+  </form>
+  <script type="text/javascript">
+    function submitForm(){
+      // Sending and receiving data in JSON format using POST method
+      var xhr = new XMLHttpRequest();
+      var url = "http://localhost:8080/movies";
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              var json = JSON.parse(xhr.responseText);
+              console.log("xxxxxx");
+          }
+      };
+      var movieTitle = document.getElementById("mtitle").value;
+      var data = JSON.stringify({"title": movieTitle});
+      xhr.send(data);
+    }
+  </script>
+  <ul>
+  #for(movie in movies):
+      <li>#(movie)</li>
+  #endfor
+  </ul>
+  </div>
+  </body>
+</html>
